@@ -41,7 +41,12 @@ public class DeffaultProjectile : MonoBehaviour, IProjectile
             }
         }
 
-        Destroy(gameObject);
+        if(collision.gameObject.GetComponent<IObstacle>() != null)
+        {
+            Destroy(gameObject);
+        }
+
+
 
     }
 
