@@ -8,6 +8,7 @@ public class GameInstaller : MonoInstaller
     [SerializeField] GameFlow gameflow;
     [SerializeField] SizeController sizeController;
     [SerializeField] DeffaultCheckObstacle deffaultCheckObstacle;
+    [SerializeField] PlayerObjectController playerObjectController;
 
     public override void InstallBindings()
     {
@@ -15,6 +16,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<IGameOver>().To<GameFlow>().FromInstance(gameflow).AsSingle();
         Container.Bind<ISize>().To<SizeController>().FromInstance(sizeController).AsSingle();
         Container.Bind<ICheckObstacle>().To<DeffaultCheckObstacle>().FromInstance(deffaultCheckObstacle).AsSingle();
+        Container.Bind<IFinishChecker>().To<PlayerObjectController>().FromInstance(playerObjectController).AsSingle();
     }
 
     void CheckDevice()

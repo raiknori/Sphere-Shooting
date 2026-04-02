@@ -4,15 +4,14 @@ using Zenject;
 public class EndGameCondition:MonoBehaviour
 {
     [Inject] IGameOver gameOver;
-    [Inject] ICheckObstacle checkObstacle;
     [Inject] ISize size;
+    [Inject] IFinishChecker finishChecker;
 
 
     void Start()
     {
         size.sizeChanged += CheckSize;
-        checkObstacle.OnObstacleHit += ObstacleTouched;
-        checkObstacle.OnFinishHit += FinishReached;
+        finishChecker.OnFinishReached += FinishReached;
     }
 
     void CheckSize(float newSize)
@@ -21,11 +20,6 @@ public class EndGameCondition:MonoBehaviour
         {
             gameOver.GameOver();
         }
-    }
-
-    void ObstacleTouched()
-    {
-        gameOver.GameOver();
     }
 
     void FinishReached()

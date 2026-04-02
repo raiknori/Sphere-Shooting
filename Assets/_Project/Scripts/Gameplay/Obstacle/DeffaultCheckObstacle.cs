@@ -3,18 +3,24 @@ using UnityEngine;
 
 public class DeffaultCheckObstacle : MonoBehaviour, ICheckObstacle
 {
-    public event Action OnObstacleHit;
-    public event Action OnFinishHit;
+    public event Action OnObstacleNotInterfere;
 
-    void OnCollisionEnter(Collision collision)
+    [SerializeField] Transform checkingObject;
+
+    [SerializeField] LayerMask layerMask;
+
+    int GetCollisionsNumber()
     {
-        if(collision.gameObject.TryGetComponent<IObstacle>(out var obstacle) )
+        Collider[] hitColliders = Physics.OverlapBox(checkingObject.position, checkingObject.localScale / 2f, checkingObject.rotation, layerMask);
+
+        return hitColliders.Length;
+    }
+
+    public void CheckObstacle()
+    {
+        if (GetCollisionsNumber() == 0)
         {
-            OnObstacleHit?.Invoke();
-        }
-        else if(collision.gameObject.tag == "Finish")
-        {
-            OnFinishHit?.Invoke();
+            OnObstacleNotInterfere.Invoke();
         }
     }
 }

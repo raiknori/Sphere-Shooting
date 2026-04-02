@@ -2,6 +2,7 @@ using System;
 
 public interface ICheckObstacle
 {
-    event Action OnObstacleHit;
-    event Action OnFinishHit;
+    event Action OnObstacleNotInterfere;
+
+    void CheckObstacle();
 }
